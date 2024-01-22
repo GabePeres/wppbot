@@ -1,0 +1,10 @@
+class Replies:
+    SUPORTE    = ('Em qual sistema você gostaria de atendimento?\n 1 - Folha_Win\n  2 - Fiscal_New\n  3 - Contabil\n  4 - Nfe\n  5 - Outro (Recibos, caixa, nfe...)')
+    FINANCEIRO = ('Deseja gerar o boleto?')
+    ORCAMENTO  = ('pega os dados do usuario para entrarmos em contato')
+    TUTORIAL   = ('link do youtube para tutorial')
+    DEFAULT    = ('Olá, sou o Geraldino, em que posso te ajudar hoje?\n1- Suporte\n 2- Financeiro\n 3- Orçamento\n 4- Tutoriais')
+    SUP_NOME   = ('Qual seu nome?')
+    SUP_NUMERO = ('Qual seu número?')
+    SUP_DESC   = ('Relate seu problema (em uma única mensagem):')
+    SUP_FIM    = ('Nossos profissionais entrarão em contato!')            
