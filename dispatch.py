@@ -2,11 +2,12 @@ from botmessage import Replies
 from twilio.twiml.messaging_response import MessagingResponse
 
 class Usuario:
-    def __init__(self, nome, numero, descricao, sistema):
+    def __init__(self, nome, numero, descricao, sistema, empresa):
         self.nome = nome
         self.numero = numero
         self.descricao = descricao
         self.sistema   = sistema
+        self.empresa   = empresa
 
 class BotOptions:
     SUPORTE    = '1'
@@ -16,54 +17,64 @@ class BotOptions:
 
 class BotDispatcher:
     #QUIZZ_FLOW = 7777
-
+    
     def __init__(self, lang='br') -> None:
         self.lang = lang
     
-    def reply(self, usermessage, NivelConversa):
+    def reply(self, usermessage, Nconv):
            message = usermessage.lower()
            #if message[0] in BotOptions.SUPORTE:
            #    return BotDispatcher.SUPORTE       
-           if (NivelConversa == 0):                
+           if (Nconv == 0):                
              if message == BotOptions.SUPORTE:
-               NivelConversa = NivelConversa + 1                         
-               return Replies.SUPORTE, NivelConversa
+               #Nconv = Nconv + 1                         
+               return Replies.SUPORTE
              elif message == BotOptions.FINANCEIRO:
-               #NivelConversa = NivelConversa + 1 
+               #Nconv = Nconv + 1 
+               Nconv = -1
                return Replies.FINANCEIRO
              elif message == BotOptions.ORCAMENTO:
-               #NivelConversa = NivelConversa + 1 
+               #Nconv = Nconv + 1 
+               Nconv = -1
                return Replies.ORCAMENTO
              elif message == BotOptions.TUTORIAL:
-               #NivelConversa = NivelConversa + 1 
+               #Nconv = Nconv + 1 
+               Nconv = -1
                return Replies.TUTORIAL
-           elif (NivelConvesrsa == 1):               
+           elif (Nconv == 1):               
              if   message == '1':
-               #NivelConversa = NivelConversa + 1                
+               #Nconv = Nconv + 1                
                Usuario.sistema = 'Folha_Win'
              elif message == '2':
-               #NivelConversa = NivelConversa + 1                
+               #Nconv = Nconv + 1                
                Usuario.sistema = 'Fiscal_New'
              elif message == '3':
-               #NivelConversa = NivelConversa + 1                
+               #Nconv = Nconv + 1                
                Usuario.sistema = 'Contabil'
              elif message == '4':
-               #NivelConversa = NivelConversa + 1
+               #Nconv = Nconv + 1
                Usuario.sistema = 'Nfe'
              elif message == '5':
                Usuario.sistema = 'Outro (Recibos, caixa, nfe.....)' 
-           elif (NivelConversa == 2):   
-             #NivelConversa = NivelConversa + 1
-             return Replies.SUP_NOME 
-           elif (NivelConversa == 3):   
-             #NivelConversa = NivelConversa + 1
+             return Replies.SUP_NOME   
+           elif (Nconv == 2):   
+             #Nconv = Nconv + 1
+             Usuario.nome = message
              return Replies.SUP_NUMERO
-           elif (NivelConversa == 4):   
-             #NivelConversa = NivelConversa + 1
-             return Replies.SUP_DESC    
-           elif (NivelConversa == 5):   
-             #NivelConversa = NivelConversa + 1
-             return Replies.SUP_FIM                        
+           elif (Nconv == 3):   
+             #Nconv = Nconv + 1
+             Usuario.numero = message
+             return Replies.SUP_EMPRESA   
+           elif (Nconv == 4):   
+             #Nconv = Nconv + 1
+             Usuario.empresa = message
+             return Replies.SUP_DESC   
+           elif (Nconv == 5):   
+             #Nconv = Nconv + 1
+             Usuario.descricao = message
+             Nconv = -1
+             return f'*Obrigado pelo contato {Usuario.nome} seu chamado foi cadastrado!*'+f'\n\n  Sistema: {Usuario.sistema}\n  Nome: {Usuario.nome}\n  Número: {Usuario.numero}\n  Empresa: {Usuario.empresa}\n  Descrição: {Usuario.descricao}\n'+Replies.SUP_FIM
+             #return Replies.SUP_FIM+Usuario.numero+Usuario.nome+Usuario.descricao                        
            else:
-             #NivelConversa = NivelConversa + 1    
+             #Nconv = Nconv + 1    
              return Replies.DEFAULT
