@@ -1,12 +1,12 @@
 from botmessage import Replies
 
-class Usuario:
-    def __init__(self, nome, numero, descricao, sistema, empresa):
-        self.nome = nome
-        self.numero = numero
-        self.descricao = descricao
-        self.sistema   = sistema
-        self.empresa   = empresa
+class Cliente:
+  def __init__(self, nome, numero, descricao, sistema, empresa):
+    self.nome      = nome
+    self.numero    = numero
+    self.descricao = descricao
+    self.sistema   = sistema
+    self.empresa   = empresa
 
 class BotOptions:
     SUPORTE    = '1'
@@ -14,9 +14,7 @@ class BotOptions:
     ORCAMENTO  = '3'
     TUTORIAL   = '4'
 
-class BotDispatcher:
-    #QUIZZ_FLOW = 7777
-    
+class BotDispatcher:    
     def __init__(self, lang='br') -> None:
         self.lang = lang
     
@@ -27,50 +25,50 @@ class BotDispatcher:
                return Replies.SUPORTE
              
              elif message == BotOptions.FINANCEIRO:
-               Nconv = -1
                return Replies.FINANCEIRO
              
+             elif message == 's':
+                return Replies.SUP_FIM
+             
              elif message == BotOptions.ORCAMENTO:
-               Nconv = -1
                return Replies.ORCAMENTO
              
              elif message == BotOptions.TUTORIAL:
-               Nconv = -1
                return Replies.TUTORIAL
              
            elif (Nconv == 1):               
              if   message == '1':           
-               Usuario.sistema = 'Folha_Win'
+               Cliente.sistema = 'Folha_Win'
 
              elif message == '2':           
-               Usuario.sistema = 'Fiscal_New'
+               Cliente.sistema = 'Fiscal_New'
 
              elif message == '3':           
-               Usuario.sistema = 'Contabil'
+               Cliente.sistema = 'Contabil'
 
              elif message == '4':
-               Usuario.sistema = 'Nfe'
+               Cliente.sistema = 'Nfe'
 
              elif message == '5':
-               Usuario.sistema = 'Outro (Recibos, caixa, nfe.....)' 
+               Cliente.sistema = 'Outro (Recibos, caixa, nfe...)' 
 
              return Replies.SUP_NOME   
            
            elif (Nconv == 2):   
-             Usuario.nome = message
+             Cliente.nome = message
              return Replies.SUP_NUMERO
            
            elif (Nconv == 3):   
-             Usuario.numero = message
+             Cliente.numero = message
              return Replies.SUP_EMPRESA   
            
            elif (Nconv == 4):   
-             Usuario.empresa = message
+             Cliente.empresa = message
              return Replies.SUP_DESC   
            
            elif (Nconv == 5):   
-             Usuario.descricao = message
-             return f'*Obrigado pelo contato {Usuario.nome} seu chamado foi cadastrado!*'+f'\n\n  Sistema: {Usuario.sistema}\n  Nome: {Usuario.nome}\n  Número: {Usuario.numero}\n  Empresa: {Usuario.empresa}\n  Descrição: {Usuario.descricao}\n'+Replies.SUP_FIM                      
+             Cliente.descricao = message
+             return f'*Obrigado pelo contato {Cliente.nome} seu chamado foi cadastrado!*'+f'\n\n  Sistema: {Cliente.sistema}\n  Nome: {Cliente.nome}\n  Número: {Cliente.numero}\n  Empresa: {Cliente.empresa}\n  Descrição: {Cliente.descricao}\n'+Replies.SUP_FIM                    
           
            else:   
              return Replies.DEFAULT

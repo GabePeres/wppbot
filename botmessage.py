@@ -8,4 +8,4 @@ class Replies:
     SUP_NUMERO  = ('🦖  Informe seu número para contato:')
     SUP_EMPRESA = ('🦖  Informe a empresa que vc trabalha:')
     SUP_DESC    = ('🦖  Relate seu problema (em uma única mensagem):')
-    SUP_FIM     = ('\n🦖  Nossos profissionais entrarão em contato!')            
+    SUP_FIM     = ('\n🦖  Nossos profissionais entrarão em contato!') 
