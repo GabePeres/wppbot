@@ -9,10 +9,10 @@ class Cliente:
     self.empresa   = empresa
 
 class BotOptions:
-    SUPORTE    = '1'
-    FINANCEIRO = '2'
-    ORCAMENTO  = '3'
-    TUTORIAL   = '4'
+    SUPORTE    = '1- suporte'
+    FINANCEIRO = '2- financeiro'
+    ORCAMENTO  = '3- orçamento'
+    TUTORIAL   = '4- tutorial'
 
 class BotDispatcher:    
     def __init__(self, lang='br') -> None:
@@ -21,35 +21,38 @@ class BotDispatcher:
     def reply(self, usermessage, Nconv):
            message = usermessage.lower()     
            if (Nconv == 0):                
-             if message == BotOptions.SUPORTE:                    
+             if message in BotOptions.SUPORTE:                    
                return Replies.SUPORTE
              
-             elif message == BotOptions.FINANCEIRO:
+             elif message in BotOptions.FINANCEIRO:
                return Replies.FINANCEIRO
              
-             elif message == 's':
+             elif message in 'sim':
                 return Replies.SUP_FIM
+ 
+             elif message in 'nao':
+                return Replies.ENCERRA
              
-             elif message == BotOptions.ORCAMENTO:
-               return Replies.ORCAMENTO
+             elif message in BotOptions.ORCAMENTO:
+               return Replies.TUTORIAL#Replies.ORCAMENTO
              
-             elif message == BotOptions.TUTORIAL:
+             elif message in BotOptions.TUTORIAL:
                return Replies.TUTORIAL
              
            elif (Nconv == 1):               
-             if   message == '1':           
+             if   message in '1- folha_Win':           
                Cliente.sistema = 'Folha_Win'
 
-             elif message == '2':           
+             elif message in '2- fiscal_New':           
                Cliente.sistema = 'Fiscal_New'
 
-             elif message == '3':           
+             elif message in '3- contabil':           
                Cliente.sistema = 'Contabil'
 
-             elif message == '4':
+             elif message in '4- Nfe':
                Cliente.sistema = 'Nfe'
 
-             elif message == '5':
+             elif message in '5- Outro':
                Cliente.sistema = 'Outro (Recibos, caixa, nfe...)' 
 
              return Replies.SUP_NOME   

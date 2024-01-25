@@ -1,3 +1,4 @@
+import sys
 from flask import Flask, request
 from botmessage import Replies
 from twilio.twiml.messaging_response import MessagingResponse
@@ -18,24 +19,34 @@ def bot():
 
     dispatch = BotDispatcher()
     botresponse = dispatch.reply(original_msg, NivelConversa)
-      
-    if (NivelConversa == 6) or (original_msg == 's'):
-      NivelConversa = -2
-      #firstChoice = -1
 
-    NivelConversa += 1
+    original_msg.lower()
+
+    if firstChoice is None and original_msg == '1':
+        #NivelConversa += 1
+        firstChoice = original_msg
     
+    if firstChoice == '1':
+      NivelConversa += 1
     
-    #if (firstChoice == 1):
-    #  NivelConversa = 1
+    if (NivelConversa == 6) or (original_msg in 'sim'):
+        NivelConversa = -2
+        firstChoice = None
+
+    if (botresponse != Replies.SUPORTE) and (botresponse is not None) and (firstChoice is not '1'):
+        NivelConversa = 0
+        #firstChoice = None
+    
+    if Replies.SUP_FIM in botresponse or Replies.ENCERRA in botresponse or Replies.TUTORIAL in botresponse:
+        NivelConversa = -1
+        firstChoice = None
+        #botresponse = dispatch.reply(original_msg, NivelConversa)
+        #sys.exit()
 
     resp = MessagingResponse()
     msg = resp.message()
     msg.body(botresponse)
 
-    if (botresponse != Replies.SUPORTE) and (botresponse != None):
-      #firstChoice = -1
-      NivelConversa = 0
 
     return str(resp)
 
